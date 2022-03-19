@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  front:
+    build:
+      context: .
+      dockerfile: Dockerfile-front
+    ports:
+    - "8081:8081"
+    stop_signal: SIGINT
+    depends_on:
+    - nginx
+    - grpc_server
+
+  grpc_server:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    ports: # just for debugging
+    - "50051:50051"
+
+  nginx:
+    image: nginx:1.21.6-alpine
+    ports:
+    - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+    - envoy
+
+  envoy:
+    build:
+      context: .
+      dockerfile: Dockerfile-envoy
+    ports: # just for debugging
+    - "8000:8000"
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
