@@ -10,6 +10,6 @@ COPY    helloworld.proto .
 RUN     protoc --include_imports --include_source_info \
             --descriptor_set_out=helloworld.pb helloworld.proto
 
-FROM    envoyproxy/envoy:v1.21.1
+FROM    envoyproxy/envoy:v1.22.0
 
 COPY    --from=build /app/helloworld.pb /tmp/
