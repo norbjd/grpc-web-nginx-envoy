@@ -1,4 +1,4 @@
-const { HelloRequest, HelloReply } = require("./helloworld_pb.js");
+const { HelloRequest } = require("./helloworld_pb.js");
 const { GreeterClient } = require("./helloworld_grpc_web_pb.js");
 
 // change with the NGINX url
